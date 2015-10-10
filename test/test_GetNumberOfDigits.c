@@ -98,4 +98,36 @@ void test_getSmallestNumber_given_neg8_neg12_5_should_return_neg12(void){
   
   TEST_ASSERT_EQUAL(-12, smallestNumber);
 }
+//*****************************************************************************
+void test_getPosList_given_neg7_neg8_9_4_neg2_should_return_9_4(void){
+  LinkedList* testList = createLinkedList();
+  addListLast(testList, createListElement(-7));
+  addListLast(testList, createListElement(-8));
+  addListLast(testList, createListElement(9));
+  addListLast(testList, createListElement(4));
+  addListLast(testList, createListElement(-2));
+  
+  LinkedList* posList = getPosList(testList);
+  
+  TEST_ASSERT_NOT_NULL(posList);
+  TEST_ASSERT_NOT_NULL(posList->head);
+  TEST_ASSERT_EQUAL(9, posList->head->value);
+  TEST_ASSERT_EQUAL(4, posList->tail->value);
+}
 
+void test_getNegList_given_neg7_neg8_9_4_neg2_should_return_neg7_neg8_neg2(void){
+  LinkedList* testList = createLinkedList();
+  addListLast(testList, createListElement(-7));
+  addListLast(testList, createListElement(-8));
+  addListLast(testList, createListElement(9));
+  addListLast(testList, createListElement(4));
+  addListLast(testList, createListElement(-2));
+  
+  LinkedList* posList = getNegList(testList);
+  
+  TEST_ASSERT_NOT_NULL(posList);
+  TEST_ASSERT_NOT_NULL(posList->head);
+  TEST_ASSERT_EQUAL(-7, posList->head->value);
+  TEST_ASSERT_EQUAL(-8, posList->head->next->value);
+  TEST_ASSERT_EQUAL(-2, posList->tail->value);
+}

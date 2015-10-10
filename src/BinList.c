@@ -1,36 +1,10 @@
-#include "LinkedList.h"
+#include "BinList.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
-#include <assert.h>
 
-/**
- * createLinkedList
- *	Calling the function will generate an empty Linked List and return it	
- *
- *	As the linked list created was empty, both head and tail point to NULL
- *
- * Words:
- *	1. newList		a new linked list object that is empty
- *
- *
- * createListElement
- *
- *	Calling the function will generate a ListElement's object and return it.
- *	ListElement type object contain:
- *		1. an integer
- *		2. a pointer to the next ListElement object
- *
- *	ListElement type object is basically a node that can extend to store more value
- *
- * Words:
- *	1. inValue		integer argument brought in to store in the listElement object
- *	2. newNode		new created node that store the "inValue"
- */
-
-
-LinkedList* createLinkedList(){
-	LinkedList* newList = malloc(sizeof(LinkedList));
+BinList* createBinList(){
+	BinList* newList = malloc(sizeof(BinList));
 	assert(newList != NULL);
   
 	newList-> head	= NULL;
@@ -40,17 +14,18 @@ LinkedList* createLinkedList(){
 	return newList;
 }
 
-ListElement* createListElement(int inValue){
-	ListElement* newNode = malloc(sizeof(ListElement));
+BinElement* createBinElement(){
+	BinElement* newNode = malloc(sizeof(BinElement));
 	assert(newNode != NULL);
   
-	newNode->value = inValue;
-	newNode->next = NULL;
+	newNode->next  = NULL;
+  newNode->size  = 0;
   
 	return newNode;
 }
 
-void addListLast(LinkedList* currentList, ListElement* currentNode){
+
+void addListLast(BinList* currentList, BinElement* currentNode){
 
   if(currentList == NULL){
     printf("ERROR: Element cannot be NULL!");
@@ -59,7 +34,7 @@ void addListLast(LinkedList* currentList, ListElement* currentNode){
     printf("ERROR: Link List cannot be NULL!");
   }
   else{
-    ListElement* tempNode = currentList->head;
+    BinElement* tempNode = currentList->head;
 		//check if the linked list empty. If empty, create a Node that the head point to
 		if(currentList->head == NULL){
 			currentList->head = currentNode;
@@ -76,7 +51,7 @@ void addListLast(LinkedList* currentList, ListElement* currentNode){
     }
 }
 
-void addListFirst(LinkedList* stack, ListElement *elem){ 
+void addListFirst(BinList* stack, BinElement *elem){ 
   if(elem == NULL){
     printf("ERROR: Element cannot be NULL!");
   }
@@ -84,7 +59,7 @@ void addListFirst(LinkedList* stack, ListElement *elem){
     printf("ERROR: Link List cannot be NULL!");
   }
   else{
-    ListElement* prevHead = malloc(sizeof(ListElement));
+    BinElement* prevHead = malloc(sizeof(BinElement));
     prevHead = stack->head;
     stack->head = elem; //No matter what, the head always point to the new added Element
     
@@ -100,8 +75,9 @@ void addListFirst(LinkedList* stack, ListElement *elem){
   }
 }
 
-ListElement* listRemoveFirst(LinkedList* link){
-  ListElement* removedElement;
+
+BinElement* listRemoveFirst(BinList* link){
+  BinElement* removedElement;
 
   if(link == NULL){    
     removedElement = NULL;
@@ -112,7 +88,7 @@ ListElement* listRemoveFirst(LinkedList* link){
     printf("Nothing to remove, empty stack here! Return empty element");
   }
   else{
-    removedElement = malloc(sizeof(ListElement));
+    removedElement = malloc(sizeof(BinElement));
     removedElement = link->head;
     if(link->head->next != NULL)
       link->head = link->head->next;
@@ -126,9 +102,9 @@ ListElement* listRemoveFirst(LinkedList* link){
   return removedElement;
 }
 
-ListElement* listRemoveLast(LinkedList* link){
-  ListElement* removedElement;
-  ListElement* tempNode = malloc(sizeof(ListElement));
+BinElement* listRemoveLast(BinList* link){
+  BinElement* removedElement;
+  BinElement* tempNode = malloc(sizeof(BinElement));
  
   if(link == NULL){    
     removedElement = NULL;
@@ -140,7 +116,7 @@ ListElement* listRemoveLast(LinkedList* link){
   }
   else{
     tempNode = link->head;
-    removedElement = malloc(sizeof(ListElement));
+    removedElement = malloc(sizeof(BinElement));
     removedElement = link->tail;
     if(tempNode->next != NULL){
       while(tempNode->next != link->tail){
@@ -157,30 +133,3 @@ ListElement* listRemoveLast(LinkedList* link){
   }
   return removedElement;
 }
-
-void connectList(LinkedList* firstList, LinkedList* secondList){
-
-  if(firstList == NULL || secondList == NULL)
-    printf("ERROR: Link List cannot be NULL!");
-  else{
-    ListElement* tempNode = firstList->head;
-		// check if the linked list empty. If empty, create a Node that the head point to
-		if(firstList->head == NULL){
-			firstList->head = secondList->head;
-		}
-		else{
-			while(tempNode->next != NULL){    		//if the list is not empty, find the last node and add a node as new last node
-				tempNode = tempNode->next;
-			}
-			tempNode->next = secondList->head;
-		}
-		while(tempNode->next != NULL){    		//if the list is not empty, find the last node and add a node as new last node
-      tempNode = tempNode->next;
-      firstList->length ++;
-		}
-    firstList->tail = secondList->tail;
-		// No matter what, the tail always point to last node
-    }
-}
-
-

@@ -50,5 +50,6 @@ void addListFirst(LinkedList* stack, ListElement *elem);
 ListElement* listRemoveFirst(LinkedList* link);
 ListElement* listRemoveLast(LinkedList* link);
 
+void connectList(LinkedList* firstList, LinkedList* secondList);
 
 #endif // linkedList_H
