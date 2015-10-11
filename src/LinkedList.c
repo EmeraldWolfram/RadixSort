@@ -163,24 +163,20 @@ void connectList(LinkedList* firstList, LinkedList* secondList){
   if(firstList == NULL || secondList == NULL)
     printf("ERROR: Link List cannot be NULL!");
   else{
-    ListElement* tempNode = firstList->head;
-		// check if the linked list empty. If empty, create a Node that the head point to
-		if(firstList->head == NULL){
-			firstList->head = secondList->head;
-		}
-		else{
-			while(tempNode->next != NULL){    		//if the list is not empty, find the last node and add a node as new last node
-				tempNode = tempNode->next;
-			}
-			tempNode->next = secondList->head;
-		}
-		while(tempNode->next != NULL){    		//if the list is not empty, find the last node and add a node as new last node
-      tempNode = tempNode->next;
-      firstList->length ++;
-		}
-    firstList->tail = secondList->tail;
-		// No matter what, the tail always point to last node
+    if(firstList->head == NULL){
+      firstList->head = secondList->head;
+      firstList->tail = secondList->tail;
+      firstList->length = secondList->length;
     }
+    else{
+      if(secondList->head != NULL){
+        firstList->tail->next = secondList->head;
+        firstList->tail = secondList->tail;
+        firstList->length = firstList->length + secondList->length;
+      }
+    }
+  }
+  free(secondList);
 }
 
 

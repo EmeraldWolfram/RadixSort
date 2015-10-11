@@ -17,12 +17,9 @@ LinkedList* sort(LinkedList* inputList){
   sortPosList = sortList(posList, ASCENDING_BIN_NUMBER);
   sortNegList = sortList(negList, DESCENDING_BIN_NUMBER);
   
-  addListLast(sortedList, sortNegList->head);
-  addListLast(sortedList, sortPosList->head);
-  // connectList(sortNegList, sortPosList);
-  
-  // return sortNegList;
-  return sortedList;
+  connectList(sortNegList, sortPosList);
+  printf("length:%d", sortNegList->length);
+  return sortNegList;
 }
 
 LinkedList* sortList(LinkedList* inputList, Arrangement arrangement){
@@ -52,11 +49,9 @@ LinkedList* sortList(LinkedList* inputList, Arrangement arrangement){
       else
         mdl16 = (-1 * div16) % 16;
       
-      // printf("modulus : %X\t", mdl16);
       if(bin[mdl16].binList == NULL)
         bin[mdl16].binList = createLinkedList();
     
-      printf("div: %d\tbin: %d\tvalue: %d\n", div16, mdl16, tempNode->value);
       addListLast(bin[mdl16].binList, createListElement(tempNode->value));
       tempNode = tempNode->next;
     }
@@ -64,16 +59,12 @@ LinkedList* sortList(LinkedList* inputList, Arrangement arrangement){
     
     if(arrangement == ASCENDING_BIN_NUMBER){
       for(i=0;i < 16;i++){
-        if(bin[i].binList != NULL)
-          addListLast(sortedList, bin[i].binList->head);
-        bin[i].binList = NULL;
+        ASSEMBLE
       }
     }
     else{
       for(i=15;i > 0;i--){
-        if(bin[i].binList != NULL)
-          addListLast(sortedList, bin[i].binList->head);
-        bin[i].binList = NULL;
+        ASSEMBLE
       }
     }
     tempNode = sortedList->head;

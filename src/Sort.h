@@ -7,9 +7,8 @@
                         list->tail = NULL;\
                         list->length = 0;
                         
-#define ASSEMBLE()      if(bin[i].binList != NULL){\
-                          addListLast(sortedList, bin[i].binList->head);\
-                        }\
+#define ASSEMBLE        if(bin[i].binList != NULL)                \
+                          connectList(sortedList, bin[i].binList);\
                         bin[i].binList = NULL;
                         
 typedef enum{
