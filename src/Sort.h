@@ -22,7 +22,5 @@ typedef struct{
 
 LinkedList* sort(LinkedList* sortedList);
 LinkedList* sortList(LinkedList* inputList, Arrangement arrangement);
-// void dissembleListIntoBins(LinkedList* inputList, NumberBin* bin, int digitToArrange);
-
 
 #endif // Sort_H

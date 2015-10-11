@@ -6,7 +6,6 @@
 
 
 LinkedList* sort(LinkedList* inputList){
-  LinkedList* sortedList   = createLinkedList();
   LinkedList* sortPosList  = createLinkedList();
   LinkedList* sortNegList  = createLinkedList();
   LinkedList* posList = getPosList(inputList);
@@ -18,19 +17,18 @@ LinkedList* sort(LinkedList* inputList){
   sortNegList = sortList(negList, DESCENDING_BIN_NUMBER);
   
   connectList(sortNegList, sortPosList);
-  printf("length:%d", sortNegList->length);
+
   return sortNegList;
 }
 
 LinkedList* sortList(LinkedList* inputList, Arrangement arrangement){
-  int mdl16, div16, i, j, digit;
+  int mdl16, div16, i, j;
   LinkedList* sortedList = createLinkedList();
   ListElement* tempNode = inputList->head;
   
-  if(arrangement == ASCENDING_BIN_NUMBER)
-    digit = getNumberOfHexDigit(getLargestNumber(inputList));
-  else
-    digit = getNumberOfHexDigit(getSmallestNumber(inputList));
+  int digit_H = getNumberOfHexDigit(getLargestNumber(inputList));
+  int digit_L = getNumberOfHexDigit(getSmallestNumber(inputList));
+  int digit   = (digit_H > digit_L) ? digit_H : digit_L;
   
   NumberBin bin[16] = {
   [0x0] = {NULL}, [0x1] = {NULL}, [0x2] = {NULL}, [0x3] = {NULL},
@@ -44,14 +42,14 @@ LinkedList* sortList(LinkedList* inputList, Arrangement arrangement){
 
     while(tempNode != NULL){
       div16 = tempNode->value / (int)(pow(16.0, (double)j));
-      if(div16 >= 0)
+      if(div16 > 0)
         mdl16 = div16 % 16;
       else
         mdl16 = (-1 * div16) % 16;
       
       if(bin[mdl16].binList == NULL)
         bin[mdl16].binList = createLinkedList();
-    
+      printf("div16: %d\tbin: %d\t value: %d\t\n", div16, mdl16, tempNode->value);
       addListLast(bin[mdl16].binList, createListElement(tempNode->value));
       tempNode = tempNode->next;
     }
@@ -63,7 +61,7 @@ LinkedList* sortList(LinkedList* inputList, Arrangement arrangement){
       }
     }
     else{
-      for(i=15;i > 0;i--){
+      for(i=15;i >= 0;i--){
         ASSEMBLE
       }
     }
