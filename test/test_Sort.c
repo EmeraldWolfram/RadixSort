@@ -288,7 +288,7 @@ void test_sort_given_0_neg16_3_neg2_should_return_neg16_neg2_0_3(void){
   LinkedList* testList  = createLinkedList();
   
   addListLast(testList, createListElement(0)); 
-  addListLast(testList, createListElement(-17)); 
+  addListLast(testList, createListElement(-16)); 
   addListLast(testList, createListElement(3)); 
   addListLast(testList, createListElement(-2)); 
   
@@ -296,8 +296,88 @@ void test_sort_given_0_neg16_3_neg2_should_return_neg16_neg2_0_3(void){
   sortedList = sort(testList);
 
   TEST_ASSERT_NOT_NULL(sortedList->head);
-  TEST_ASSERT_EQUAL(-17, sortedList->head->value);
+  TEST_ASSERT_EQUAL(-16, sortedList->head->value);
   TEST_ASSERT_EQUAL(-2, sortedList->head->next->value);
   TEST_ASSERT_EQUAL(0, sortedList->head->next->next->value);
   TEST_ASSERT_EQUAL(3, sortedList->tail->value);
+}
+
+/**
+ *  TEST SORT WITH ONLY POSITIVE ITEM, SEE CAN IT SORT WITHOUT NEGATIVE ITEM
+ *
+ *  INPUT : 
+ *   
+ *  *********
+ *  * tail  * ----------------------------------------
+ *  *********                                         \
+ *  * head  * \       *******        ******        *******
+ *  *********   ----> * 0x7E* -----> *0x02* -----> * 0x0E*
+ *                    *******        ******        *******
+ *  
+ *  after calling sort function, a sorted link list will be return as shown below:
+ *
+ *  SORTED:
+ *  *********
+ *  * tail  * ----------------------------------------
+ *  *********                                         \
+ *  * head  * \       *******        ******        *******
+ *  *********   ----> * 0x02* -----> *0x0E* -----> * 0x7E*
+ *                    *******        ******        *******
+ * 
+ */
+void test_sort_given_0x7E_0x2_0xE_should_return_0x2_0xE_0x7E(void){
+  LinkedList* testList  = createLinkedList();
+  
+  addListLast(testList, createListElement(0x7E)); 
+  addListLast(testList, createListElement(0x02)); 
+  addListLast(testList, createListElement(0x0E)); 
+  
+  LinkedList* sortedList = createLinkedList();
+  sortedList = sort(testList);
+
+  TEST_ASSERT_NOT_NULL(sortedList->head);
+  TEST_ASSERT_EQUAL(0x02, sortedList->head->value);
+  TEST_ASSERT_EQUAL(0x0E, sortedList->head->next->value);
+  TEST_ASSERT_EQUAL(0x7E, sortedList->tail->value);
+}
+
+/**
+ *  TO TEST sort FUNCTION ABLE TO SORT LIST WITH NEGATIVE NUMBER ONLY
+ *
+ *  INPUT : 
+ *   
+ *  *********
+ *  * tail  * ----------------------------------------
+ *  *********                                         \
+ *  * head  * \       *******        ********        *******
+ *  *********   ----> * -6  * -----> *  -2  * -----> * -3  *
+ *                    *******        ********        *******
+ *
+ *  after calling sort function, a sorted link list will be return as shown below:
+ *
+ *  SORTED:
+ *
+ *  *********
+ *  * tail  * ----------------------------------------
+ *  *********                                         \
+ *  * head  * \       ********        ********        *******
+ *  *********   ----> * -6   * -----> *  -3  * -----> *  -2 *
+ *                    ********        ********        *******
+ *
+ *  THIS TEST USE TO CHECK IF sort CAN SORT NEGATIVE VALUE WITHOUT HAVING POSITIVE ITEM
+ */
+void test_sort_given_neg6_neg2_neg3_should_return_neg6_neg3_neg2(void){
+  LinkedList* testList  = createLinkedList();
+   
+  addListLast(testList, createListElement(-6)); 
+  addListLast(testList, createListElement(-2)); 
+  addListLast(testList, createListElement(-3));
+  
+  LinkedList* sortedList = createLinkedList();
+  sortedList = sort(testList);
+
+  TEST_ASSERT_NOT_NULL(sortedList->head);
+  TEST_ASSERT_EQUAL(-6, sortedList->head->value);
+  TEST_ASSERT_EQUAL(-3, sortedList->head->next->value);
+  TEST_ASSERT_EQUAL(-2, sortedList->tail->value);
 }
