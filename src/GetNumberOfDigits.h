@@ -1,6 +1,7 @@
 #ifndef GetNumberOfDigits_H
 #define GetNumberOfDigits_H
-#include "linkedList.h"
+#include "LinkedList.h"
+#include "ErrorObject.h"
 
 int getNumberOfHexDigit(int numberToFind);
 int getLargestNumber(LinkedList* inputList);

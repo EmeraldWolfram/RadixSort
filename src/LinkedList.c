@@ -53,10 +53,10 @@ ListElement* createListElement(int inValue){
 void addListLast(LinkedList* currentList, ListElement* currentNode){
 
   if(currentList == NULL){
-    printf("ERROR: Element cannot be NULL!");
+    ThrowError(ERR_NULL_LINK_LIST, "NULL Link List detected");
   }
   else if(currentNode == NULL){
-    printf("ERROR: Link List cannot be NULL!");
+    ThrowError(ERR_NULL_ELEMENT, "NULL Element detected");
   }
   else{
     ListElement* tempNode = currentList->head;
@@ -78,10 +78,10 @@ void addListLast(LinkedList* currentList, ListElement* currentNode){
 
 void addListFirst(LinkedList* stack, ListElement *elem){ 
   if(elem == NULL){
-    printf("ERROR: Element cannot be NULL!");
+    ThrowError(ERR_NULL_ELEMENT, "NULL Element detected");
   }
   else if(stack == NULL){
-    printf("ERROR: Link List cannot be NULL!");
+    ThrowError(ERR_NULL_LINK_LIST, "NULL Link List detected");
   }
   else{
     ListElement* prevHead = malloc(sizeof(ListElement));
@@ -105,11 +105,11 @@ ListElement* listRemoveFirst(LinkedList* link){
 
   if(link == NULL){    
     removedElement = NULL;
-    printf("ERROR: Link List cannot be NULL!");
+    ThrowError(ERR_NULL_LINK_LIST, "NULL Link List detected");
   }
   else if(link->head == NULL){
     removedElement = NULL;
-    printf("Nothing to remove, empty stack here! Return empty element");
+    ThrowError(ERR_EMPTY_LIST, "Empty Link List detected");
   }
   else{
     removedElement = malloc(sizeof(ListElement));
@@ -132,11 +132,11 @@ ListElement* listRemoveLast(LinkedList* link){
  
   if(link == NULL){    
     removedElement = NULL;
-    printf("ERROR: Link List cannot be NULL!");
+    ThrowError(ERR_NULL_LINK_LIST, "NULL Link List detected");
   }
   else if(link->head == NULL){
     removedElement = NULL;
-    printf("Nothing to remove, empty stack here! Return empty element");
+    ThrowError(ERR_EMPTY_LIST, "Empty Link List detected");
   }
   else{
     tempNode = link->head;
@@ -161,7 +161,7 @@ ListElement* listRemoveLast(LinkedList* link){
 void connectList(LinkedList* firstList, LinkedList* secondList){
 
   if(firstList == NULL || secondList == NULL)
-    printf("ERROR: Link List cannot be NULL!");
+    ThrowError(ERR_NULL_LINK_LIST, "NULL Link List detected");
   else{
     if(firstList->head == NULL){
       firstList->head = secondList->head;

@@ -2,6 +2,7 @@
 #include "Sort.h"
 #include "LinkedList.h"
 #include "GetNumberOfDigits.h"
+#include "ErrorObject.h"
 #include <stdlib.h>
 #include <math.h>
 

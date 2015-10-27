@@ -2,6 +2,7 @@
 #define Sort_H
 #include "LinkedList.h"
 #include "GetNumberOfDigits.h"
+#include "ErrorObject.h"
 
 #define RESET(list)     list->head = NULL;\
                         list->tail = NULL;\

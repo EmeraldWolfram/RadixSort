@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "GetNumberOfDigits.h"
 #include "LinkedList.h"
+#include "ErrorObject.h"
 #include <stdio.h>
 
 void setUp(void){}
